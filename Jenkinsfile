@@ -13,7 +13,7 @@ pipeline {
 stages{
         stage('Build'){
             steps {
-                bat 'C:/apache-maven-3.5.2/bin/mvn package'
+                bat "C:/apache-maven-3.5.2/bin/mvn" clean package"
             }
             post {
                 success {
@@ -31,7 +31,7 @@ stages{
                     }
                 }
  
-                stage ("Deploy to Production"){
+                stage ('Deploy to Production'){
                     steps {
                         bat "winscp -i C:/Users/Divya/demo.pem **/target/*.war ec2-user@${params.tomcat_prod}:/var/lib/tomcat7/webapps"
                     }
