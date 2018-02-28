@@ -13,7 +13,7 @@ pipeline {
 stages{
         stage('Build'){
             steps {
-                bat 'C:/apache-maven-3.5.2/bin/ mvn clean package'
+                bat 'C:/apache-maven-3.5.2/bin/mvn clean package'
             }
             post {
                 success {
