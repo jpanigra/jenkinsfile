@@ -2,8 +2,8 @@ pipeline {
     agent any
     
     parameters { 
-         string(name: 'tomcat_dev', defaultValue: '35.166.210.154', description: 'Staging Server')
-         string(name: 'tomcat_prod', defaultValue: '34.209.233.6', description: 'Production Server')
+         string(name: 'tomcat_dev', defaultValue: '52.87.187.59', description: 'Staging Server')
+         string(name: 'tomcat_prod', defaultValue: '52.90.9.87', description: 'Production Server')
     } 
  
     triggers {
@@ -27,13 +27,13 @@ stages{
             parallel{
                 stage ('Deploy to Staging'){
                     steps {
-                        bat "winscp -i /home/jenkins/tomcat-demo.pem **/target/*.war ec2-user@${params.tomcat_dev}:/var/lib/tomcat7/webapps"
+                        bat "winscp -i C:/Users/Divya/demo.pem **/target/*.war ec2-user@${params.tomcat_dev}:/var/lib/tomcat7/webapps"
                     }
                 }
  
                 stage ("Deploy to Production"){
                     steps {
-                        bat "winscp -i /home/jenkins/tomcat-demo.pem **/target/*.war ec2-user@${params.tomcat_prod}:/var/lib/tomcat7/webapps"
+                        bat "winscp -i C:/Users/Divya/demo.pem **/target/*.war ec2-user@${params.tomcat_prod}:/var/lib/tomcat7/webapps"
                     }
                 }
             }
