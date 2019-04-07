@@ -1,42 +1,22 @@
 pipeline {
     agent any
-    
-    parameters { 
-         string(name: 'tomcat_dev', defaultValue: '52.87.187.59', description: 'Staging Server')
-         string(name: 'tomcat_prod', defaultValue: '52.90.9.87', description: 'Production Server')
-    } 
- 
-    triggers {
-         pollSCM('* * * * *') // Polling Source Control
-     }
- 
-stages{
-        stage('Build'){
+
+    stages {
+        stage('Build') {
             steps {
-                bat 'mvn clean package'
-            }
-            post {
-                success {
-                    echo 'Now Archiving...'
-                    archiveArtifacts artifacts: '**/target/*.war'
-                }
+                echo 'Building Code..'
             }
         }
- 
-        stage ('Deployments'){
-            parallel{
-                stage ('Deploy to Staging'){
-                    steps {
-                        bat "winscp -i 'C:/Users/Divya/demo.pem' **/target/*.war ec2-user@${params.tomcat_dev}:/var/lib/tomcat7/webapps"
-                    }
-                }
- 
-                stage ('Deploy to Production'){
-                    steps {
-                        bat "winscp -i 'C:/Users/Divya/demo.pem' **/target/*.war ec2-user@${params.tomcat_prod}:/var/lib/tomcat7/webapps"
-                    }
-                }
+        stage('Test') {
+            steps {
+                echo 'Testing The App..'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying the App....'
             }
         }
     }
 }
+
